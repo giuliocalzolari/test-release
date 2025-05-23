@@ -1,0 +1,36 @@
+name: Release on Changelog Update
+
+on:
+  push:
+    paths:
+      - 'CHANGELOG.md'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install auto-changelog
+        run: npm install -g auto-changelog
+
+      - name: Parse changelog
+        id: changelog
+        run: |
+          VERSION=$(auto-changelog --latest-version)
+          NOTES=$(auto-changelog --latest-release)
+
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.changelog.outputs.version }}
+          name: Release v${{ steps.changelog.outputs.version }}
+          body: ${{ steps.changelog.outputs.notes }}
