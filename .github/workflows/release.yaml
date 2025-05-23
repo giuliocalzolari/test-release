@@ -28,6 +28,7 @@ jobs:
           VERSION: ${{ steps.query-release-info.outputs.version }}
           RELEASE_DATE: ${{ steps.query-release-info.outputs.release-date }}
           RELEASE_NOTES: ${{ steps.query-release-info.outputs.release-notes }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
             echo "Version: $VERSION"
             echo "$RELEASE_NOTES" > release_notes.md
