@@ -20,7 +20,7 @@ jobs:
       - name: Parse changelog
         id: changelog
         run: |
-          auto-changelog --unreleased --stdout
+          auto-changelog --template json --unreleased --stdout
           VERSION=$(auto-changelog)
           NOTES=$(auto-changelog)
 
@@ -30,8 +30,8 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.changelog.outputs.version }}
-          name: Release v${{ steps.changelog.outputs.version }}
+          tag_name: ${{ steps.changelog.outputs.version }}
+          name: Release ${{ steps.changelog.outputs.version }}
           body: ${{ steps.changelog.outputs.notes }}
