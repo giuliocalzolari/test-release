@@ -6,6 +6,8 @@ on:
       - 'CHANGELOG.md'
       - ".github/workflows/release.yaml"
 
+permissions:
+  contents: write
 
 
 jobs:
@@ -22,19 +24,16 @@ jobs:
           version: latest
 
       - name: Display release info
+        env:
+          VERSION: ${{ steps.query-release-info.outputs.version }}
+          RELEASE_DATE: ${{ steps.query-release-info.outputs.release-date }}
+          RELEASE_NOTES: ${{ steps.query-release-info.outputs.release-notes }}
         run: |
-            echo "Version: ${{ steps.query-release-info.outputs.version }}"
-            echo "Date: ${{ steps.query-release-info.outputs.release-date }}"
-            echo "${{ steps.query-release-info.outputs.release-notes }}"
+            echo "Version: $VERSION"
+            echo "$RELEASE_NOTES" > release_notes.md
+
+            date > date.txt
+
+            gh release create "v$VERSION - $RELEASE_DATE" -F release_notes.md -t $VERSION date.txt
 
 
-
-      - name: Bump changelog version
-        uses: release-flow/keep-a-changelog-action@v3
-        with:
-          command: bump
-          version: minor
-
-      - name: Display version number
-        run: |
-          echo "New release version: ${{ steps.update-changelog.outputs.version }}"
