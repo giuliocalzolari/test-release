@@ -36,6 +36,14 @@ jobs:
             date > date1.txt
             date > date2.txt
 
-            gh release create $VERSION --title "Release $VERSION - $RELEASE_DATE" -F release_notes.md *.txt
+            LATEST_RELEASE=$(gh release view --json tagName --jq '.tagName')
+            if [ "$VERSION" == "$LATEST_RELEASE" ]; then
+                echo "Versions match nothing to do!"
+            else
+                echo "Release Time!"
+                gh release create $VERSION --title "$VERSION" -F release_notes.md *.txt
+            fi
+
+
 
 
