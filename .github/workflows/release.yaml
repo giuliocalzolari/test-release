@@ -20,8 +20,9 @@ jobs:
       - name: Parse changelog
         id: changelog
         run: |
-          VERSION=$(auto-changelog --latest-version)
-          NOTES=$(auto-changelog --latest-release)
+          auto-changelog --unreleased --stdout
+          VERSION=$(auto-changelog)
+          NOTES=$(auto-changelog)
 
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "notes<<EOF" >> $GITHUB_OUTPUT
