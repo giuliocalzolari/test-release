@@ -3,7 +3,7 @@
 
 my personal change log
 
-## [UNRELEASE]
+## [Unreleased]
 
 ### Added
 
