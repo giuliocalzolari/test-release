@@ -3,7 +3,7 @@
 
 my personal change log
 
-## [Unreleased]
+## [0.1.2] - 2025-07-22
 
 ### Added
 
