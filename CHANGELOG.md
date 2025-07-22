@@ -3,6 +3,20 @@
 
 my personal change log
 
+## [UNRELEASE]
+
+### Added
+
+- more bugs
+
+### Fixed
+
+- other bug
+
+### Removed
+
+- other stuff
+
 ## [0.1.1] - 2025-03-15
 
 ### Added
