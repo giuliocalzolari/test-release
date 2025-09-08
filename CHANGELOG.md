@@ -3,6 +3,13 @@
 
 my personal change log
 
+## [1.0.1] - 2025-07-22
+
+### Added
+
+- add rolling tag
+
+
 ## [0.1.2] - 2025-07-22
 
 ### Added
