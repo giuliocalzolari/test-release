@@ -32,6 +32,10 @@ jobs:
         run: |
             echo "Version: $VERSION"
             echo "$RELEASE_NOTES" > release_notes.md
+            echo "Release Date: $RELEASE_DATE"
+            if [[ "$VERSION" != v* ]]; then
+              VERSION="v${VERSION}"
+            fi
 
             date > date1.txt
             date > date2.txt
